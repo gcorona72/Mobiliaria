@@ -1,0 +1,16 @@
+@startuml
+start
+:Seleccionar tipo de Kit;
+if (¿Kit prediseñado?) then (sí)
+  :Invocar Factory.getKit(tipo);
+else (no)
+  :Crear Builder de Kit;
+  partition "Builder" {
+    :builder.setCodigo(código);
+    :builder.addElemento(pieza1);
+    :builder.addElemento(pieza2);
+  }
+  :kit = builder.build();
+endif
+stop
+@enduml

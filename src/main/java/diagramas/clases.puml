@@ -1,0 +1,46 @@
+@startuml
+abstract class Elemento {
+  -codigo: int
+  -precioBase: double
+  +getCodigo(): int
+  +getPrecio(): double
+}
+
+class PiezaSimple {
+  +getPrecio(): double
+}
+
+class Kit {
+  -componentes: List<Elemento>
+  -codigo: int
+  +addElemento(e: Elemento): void
+  +getPrecio(): double
+  +getCodigo(): int
+}
+
+interface KitCreator {
+  +createKit(...): Kit
+}
+
+class KitFactory {
+  +createStandardKit(tipo: String): Kit
+}
+
+class KitBuilder {
+  -codigo: int
+  -componentes: List<Elemento>
+  +setCodigo(c: int): KitBuilder
+  +addElemento(e: Elemento): KitBuilder
+  +build(): Kit
+}
+
+Elemento <|-- PiezaSimple
+Elemento <|-- Kit
+
+KitCreator <|.. KitFactory
+KitCreator <|.. KitBuilder
+
+KitFactory ..> Kit : «creates»
+KitBuilder ..> Kit : «builds»
+Kit *-- Elemento : componentes
+@enduml

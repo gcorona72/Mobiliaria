@@ -1,0 +1,17 @@
+@startuml
+  start
+  :Inicializar total = 0;
+  fork
+    partition "Kit" {
+      :Obtener lista de componentes;
+    }
+  fork again
+    repeat
+      :precioComp = componente.getPrecio();
+      :total = total + precioComp;
+    repeat while (hay más componentes)
+  end fork
+  :descuento = total * 0.10;
+  :precioFinal = total - descuento;
+  stop
+  @enduml
